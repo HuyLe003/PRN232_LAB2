@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: prn232-lms-db
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: Password@123
+      MSSQL_PID: Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-volume:/var/opt/mssql
+    networks:
+      - lms-network
+    healthcheck:
+      test: ["CMD", "/bin/bash", "-c", "/opt/mssql-tools/bin/sqlcmd -S . -U sa -P Password@123 -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: prn232-lms-api
+    depends_on:
+      - sqlserver
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=PRN232_LMS;User Id=sa;Password=Password@123;Encrypt=false;TrustServerCertificate=true;"
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+    ports:
+      - "5000:8080"
+      - "5001:8443"
+    networks:
+      - lms-network
+    restart: on-failure:5
+
+volumes:
+  sqlserver-volume:
+
+networks:
+  lms-network:
+    driver: bridge

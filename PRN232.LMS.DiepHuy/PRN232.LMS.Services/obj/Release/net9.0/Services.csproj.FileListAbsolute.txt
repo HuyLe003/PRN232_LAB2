@@ -1,0 +1,15 @@
+D:\PRN232\PRN232.LMS.DiepHuy\Services\bin\Release\net9.0\Services.deps.json
+D:\PRN232\PRN232.LMS.DiepHuy\Services\bin\Release\net9.0\Services.dll
+D:\PRN232\PRN232.LMS.DiepHuy\Services\bin\Release\net9.0\Services.pdb
+D:\PRN232\PRN232.LMS.DiepHuy\Services\bin\Release\net9.0\Repositories.dll
+D:\PRN232\PRN232.LMS.DiepHuy\Services\bin\Release\net9.0\Repositories.pdb
+D:\PRN232\PRN232.LMS.DiepHuy\Services\obj\Release\net9.0\Services.csproj.AssemblyReference.cache
+D:\PRN232\PRN232.LMS.DiepHuy\Services\obj\Release\net9.0\Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\PRN232\PRN232.LMS.DiepHuy\Services\obj\Release\net9.0\Services.AssemblyInfoInputs.cache
+D:\PRN232\PRN232.LMS.DiepHuy\Services\obj\Release\net9.0\Services.AssemblyInfo.cs
+D:\PRN232\PRN232.LMS.DiepHuy\Services\obj\Release\net9.0\Services.csproj.CoreCompileInputs.cache
+D:\PRN232\PRN232.LMS.DiepHuy\Services\obj\Release\net9.0\Services.csproj.Up2Date
+D:\PRN232\PRN232.LMS.DiepHuy\Services\obj\Release\net9.0\Services.dll
+D:\PRN232\PRN232.LMS.DiepHuy\Services\obj\Release\net9.0\refint\Services.dll
+D:\PRN232\PRN232.LMS.DiepHuy\Services\obj\Release\net9.0\Services.pdb
+D:\PRN232\PRN232.LMS.DiepHuy\Services\obj\Release\net9.0\ref\Services.dll

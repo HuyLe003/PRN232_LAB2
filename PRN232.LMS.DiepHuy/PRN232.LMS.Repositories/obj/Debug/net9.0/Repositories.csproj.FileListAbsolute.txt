@@ -1,0 +1,12 @@
+D:\PRN232\PRN232.LMS.DiepHuy\Repositories\bin\Debug\net9.0\Repositories.deps.json
+D:\PRN232\PRN232.LMS.DiepHuy\Repositories\bin\Debug\net9.0\Repositories.dll
+D:\PRN232\PRN232.LMS.DiepHuy\Repositories\bin\Debug\net9.0\Repositories.pdb
+D:\PRN232\PRN232.LMS.DiepHuy\Repositories\obj\Debug\net9.0\Repositories.csproj.AssemblyReference.cache
+D:\PRN232\PRN232.LMS.DiepHuy\Repositories\obj\Debug\net9.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+D:\PRN232\PRN232.LMS.DiepHuy\Repositories\obj\Debug\net9.0\Repositories.AssemblyInfoInputs.cache
+D:\PRN232\PRN232.LMS.DiepHuy\Repositories\obj\Debug\net9.0\Repositories.AssemblyInfo.cs
+D:\PRN232\PRN232.LMS.DiepHuy\Repositories\obj\Debug\net9.0\Repositories.csproj.CoreCompileInputs.cache
+D:\PRN232\PRN232.LMS.DiepHuy\Repositories\obj\Debug\net9.0\Repositories.dll
+D:\PRN232\PRN232.LMS.DiepHuy\Repositories\obj\Debug\net9.0\refint\Repositories.dll
+D:\PRN232\PRN232.LMS.DiepHuy\Repositories\obj\Debug\net9.0\Repositories.pdb
+D:\PRN232\PRN232.LMS.DiepHuy\Repositories\obj\Debug\net9.0\ref\Repositories.dll
