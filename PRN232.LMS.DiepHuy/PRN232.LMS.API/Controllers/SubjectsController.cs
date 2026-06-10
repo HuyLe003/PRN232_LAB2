@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// ========== SubjectsController.cs ==========
+using Microsoft.AspNetCore.Mvc;
 using PRN232.LMS.API.Models;
 using PRN232.LMS.Repositories.Models;
 using PRN232.LMS.Services.Interfaces;
@@ -7,7 +8,7 @@ using PRN232.LMS.Services.Models;
 namespace PRN232.LMS.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class SubjectsController : ControllerBase
     {
         private readonly ISubjectService _service;
@@ -22,7 +23,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Get paginated list of subjects
         /// </summary>
-        [HttpGet]
+        [HttpGet(Name = "GetSubjects")]
         [Produces("application/json", "application/xml")] 
         public async Task<IActionResult> GetSubjects(
             [FromQuery] int page = 1,
@@ -69,9 +70,9 @@ namespace PRN232.LMS.API.Controllers
         }
 
         /// <summary>
-        /// Get subject by ID
+        /// Get subject by ID with Route Constraint
         /// </summary>
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}", Name = "GetSubjectById")]
         [Produces("application/json", "application/xml")] 
         public async Task<IActionResult> GetSubjectById(
             [FromRoute] int id,
@@ -99,7 +100,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Create a new subject
         /// </summary>
-        [HttpPost]
+        [HttpPost(Name = "CreateSubject")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> CreateSubject(
             [FromBody] CreateSubjectRequest request,
@@ -115,7 +116,7 @@ namespace PRN232.LMS.API.Controllers
                     return BadRequest(ApiResponse<string>.CreateFailure("Invalid request data", new List<string>(ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)))));
 
                 var subject = await _service.CreateSubjectAsync(request);
-                return CreatedAtAction(nameof(GetSubjectById), new { id = subject.SubjectId }, ApiResponse<SubjectDto>.CreateSuccess(subject, "Subject created successfully"));
+                return CreatedAtRoute("GetSubjectById", new { id = subject.SubjectId }, ApiResponse<SubjectDto>.CreateSuccess(subject, "Subject created successfully"));
             }
             catch (Exception ex)
             {
@@ -127,7 +128,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Update an existing subject
         /// </summary>
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}", Name = "UpdateSubject")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> UpdateSubject(
             [FromRoute] int id,
@@ -159,7 +160,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Delete a subject
         /// </summary>
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}", Name = "DeleteSubject")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> DeleteSubject(
             [FromRoute] int id,

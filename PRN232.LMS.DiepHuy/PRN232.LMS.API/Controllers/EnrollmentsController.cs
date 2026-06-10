@@ -7,7 +7,7 @@ using PRN232.LMS.Services.Models;
 namespace PRN232.LMS.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class EnrollmentsController : ControllerBase
     {
         private readonly IEnrollmentService _service;
@@ -22,7 +22,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Get paginated list of enrollments
         /// </summary>
-        [HttpGet]
+        [HttpGet(Name = "GetEnrollments")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> GetEnrollments(
             [FromQuery] int page = 1,
@@ -71,9 +71,9 @@ namespace PRN232.LMS.API.Controllers
         }
 
         /// <summary>
-        /// Get enrollment by ID
+        /// Get enrollment by ID with Route Constraint
         /// </summary>
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}", Name = "GetEnrollmentById")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> GetEnrollmentById(
             [FromRoute] int id,
@@ -101,7 +101,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Create a new enrollment
         /// </summary>
-        [HttpPost]
+        [HttpPost(Name = "CreateEnrollment")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> CreateEnrollment(
             [FromBody] CreateEnrollmentRequest request,
@@ -117,7 +117,7 @@ namespace PRN232.LMS.API.Controllers
                     return BadRequest(ApiResponse<string>.CreateFailure("Invalid request data", new List<string>(ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)))));
 
                 var enrollment = await _service.CreateEnrollmentAsync(request);
-                return CreatedAtAction(nameof(GetEnrollmentById), new { id = enrollment.EnrollmentId }, ApiResponse<EnrollmentDto>.CreateSuccess(enrollment, "Enrollment created successfully"));
+                return CreatedAtRoute("GetEnrollmentById", new { id = enrollment.EnrollmentId }, ApiResponse<EnrollmentDto>.CreateSuccess(enrollment, "Enrollment created successfully"));
             }
             catch (Exception ex)
             {
@@ -129,7 +129,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Update an existing enrollment
         /// </summary>
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}", Name = "UpdateEnrollment")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> UpdateEnrollment(
             [FromRoute] int id,
@@ -161,7 +161,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Delete an enrollment
         /// </summary>
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}", Name = "DeleteEnrollment")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> DeleteEnrollment(
             [FromRoute] int id,

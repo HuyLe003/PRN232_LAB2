@@ -7,7 +7,7 @@ using PRN232.LMS.Services.Models;
 namespace PRN232.LMS.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class StudentsController : ControllerBase
     {
         private readonly IStudentService _service;
@@ -22,7 +22,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Get paginated list of students with search, sort, and filter support
         /// </summary>
-        [HttpGet]
+        [HttpGet(Name = "GetStudents")]
         [Produces("application/json", "application/xml")] 
         public async Task<IActionResult> GetStudents(
             [FromQuery] int page = 1,
@@ -73,9 +73,9 @@ namespace PRN232.LMS.API.Controllers
         }
 
         /// <summary>
-        /// Get student by ID
+        /// Get student by ID with Route Constraint
         /// </summary>
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}", Name = "GetStudentById")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> GetStudentById(
             [FromRoute] int id,
@@ -103,7 +103,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Create a new student
         /// </summary>
-        [HttpPost]
+        [HttpPost(Name = "CreateStudent")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> CreateStudent(
             [FromBody] CreateStudentRequest request,
@@ -119,7 +119,7 @@ namespace PRN232.LMS.API.Controllers
                     return BadRequest(ApiResponse<string>.CreateFailure("Invalid request data", new List<string>(ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)))));
 
                 var student = await _service.CreateStudentAsync(request);
-                return CreatedAtAction(nameof(GetStudentById), new { id = student.StudentId }, ApiResponse<StudentDto>.CreateSuccess(student, "Student created successfully"));
+                return CreatedAtRoute("GetStudentById", new { id = student.StudentId }, ApiResponse<StudentDto>.CreateSuccess(student, "Student created successfully"));
             }
             catch (Exception ex)
             {
@@ -131,7 +131,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Update an existing student
         /// </summary>
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}", Name = "UpdateStudent")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> UpdateStudent(
             [FromRoute] int id,
@@ -163,7 +163,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Delete a student
         /// </summary>
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}", Name = "DeleteStudent")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> DeleteStudent(
             [FromRoute] int id,

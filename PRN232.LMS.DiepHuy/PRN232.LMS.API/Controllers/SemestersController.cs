@@ -1,3 +1,4 @@
+// ========== SemestersController.cs ==========
 using Microsoft.AspNetCore.Mvc;
 using PRN232.LMS.API.Models;
 using PRN232.LMS.Repositories.Models;
@@ -7,7 +8,7 @@ using PRN232.LMS.Services.Models;
 namespace PRN232.LMS.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class SemestersController : ControllerBase
     {
         private readonly ISemesterService _service;
@@ -22,7 +23,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Get paginated list of semesters
         /// </summary>
-        [HttpGet]
+        [HttpGet(Name = "GetSemesters")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> GetSemesters(
             [FromQuery] int page = 1,
@@ -71,9 +72,9 @@ namespace PRN232.LMS.API.Controllers
         }
 
         /// <summary>
-        /// Get semester by ID
+        /// Get semester by ID with Route Constraint
         /// </summary>
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}", Name = "GetSemesterById")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> GetSemesterById(
             [FromRoute] int id,
@@ -101,7 +102,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Create a new semester
         /// </summary>
-        [HttpPost]
+        [HttpPost(Name = "CreateSemester")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> CreateSemester(
             [FromBody] CreateSemesterRequest request,
@@ -117,7 +118,7 @@ namespace PRN232.LMS.API.Controllers
                     return BadRequest(ApiResponse<string>.CreateFailure("Invalid request data", new List<string>(ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)))));
 
                 var semester = await _service.CreateSemesterAsync(request);
-                return CreatedAtAction(nameof(GetSemesterById), new { id = semester.SemesterId }, ApiResponse<SemesterDto>.CreateSuccess(semester, "Semester created successfully"));
+                return CreatedAtRoute("GetSemesterById", new { id = semester.SemesterId }, ApiResponse<SemesterDto>.CreateSuccess(semester, "Semester created successfully"));
             }
             catch (Exception ex)
             {
@@ -129,7 +130,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Update an existing semester
         /// </summary>
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}", Name = "UpdateSemester")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> UpdateSemester(
             [FromRoute] int id,
@@ -161,7 +162,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Delete a semester
         /// </summary>
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}", Name = "DeleteSemester")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> DeleteSemester(
             [FromRoute] int id,

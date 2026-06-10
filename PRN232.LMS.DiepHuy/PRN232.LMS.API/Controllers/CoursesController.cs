@@ -7,24 +7,30 @@ using PRN232.LMS.Services.Models;
 namespace PRN232.LMS.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class CoursesController : ControllerBase
     {
         private readonly ICourseService _service;
         private readonly IEnrollmentService _enrollmentService;
+        private readonly IStudentService _studentService;
         private readonly ILogger<CoursesController> _logger;
 
-        public CoursesController(ICourseService service, IEnrollmentService enrollmentService, ILogger<CoursesController> logger)
+        public CoursesController(
+            ICourseService service, 
+            IEnrollmentService enrollmentService,
+            IStudentService studentService,
+            ILogger<CoursesController> logger)
         {
             _service = service;
             _enrollmentService = enrollmentService;
+            _studentService = studentService;
             _logger = logger;
         }
 
         /// <summary>
         /// Get paginated list of courses
         /// </summary>
-        [HttpGet]
+        [HttpGet(Name = "GetCourses")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> GetCourses(
             [FromQuery] int page = 1,
@@ -73,9 +79,9 @@ namespace PRN232.LMS.API.Controllers
         }
 
         /// <summary>
-        /// Get course by ID
+        /// Get course by ID with Route Constraint
         /// </summary>
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}", Name = "GetCourseById")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> GetCourseById(
             [FromRoute] int id,
@@ -101,9 +107,74 @@ namespace PRN232.LMS.API.Controllers
         }
 
         /// <summary>
+        /// 🌟 NESTED RESOURCE: Get all students in a course
+        /// Route: /api/v1/courses/{courseId}/students
+        /// </summary>
+        [HttpGet("{courseId:int}/students", Name = "GetStudentsByCourse")]
+        [Produces("application/json", "application/xml")]
+        public async Task<IActionResult> GetStudentsByCourse(
+            [FromRoute] int courseId,
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 10,
+            [FromHeader(Name = "X-Request-Id")] string? requestId = null)
+        {
+            try
+            {
+                // Log request ID if provided
+                if (!string.IsNullOrEmpty(requestId))
+                    _logger.LogInformation($"Request ID: {requestId}");
+
+                // Verify course exists
+                var course = await _service.GetCourseByIdAsync(courseId);
+                if (course == null)
+                    return NotFound(ApiResponse<string>.CreateFailure($"Course with ID {courseId} not found"));
+
+                // Get enrollments for this course
+                var queryParams = new QueryParameters
+                {
+                    Page = page,
+                    PageSize = pageSize,
+                    Search = $"courseId:{courseId}",
+                };
+
+                var (enrollments, total) = await _enrollmentService.GetEnrollmentsAsync(queryParams);
+
+                // Extract student IDs and get student details
+                var studentIds = enrollments.Select(e => e.StudentId).ToList();
+                var students = new List<StudentDto>();
+
+                foreach (var studentId in studentIds)
+                {
+                    var student = await _studentService.GetStudentByIdAsync(studentId);
+                    if (student != null)
+                        students.Add(student);
+                }
+
+                var response = new PaginatedResponse<StudentDto>
+                {
+                    Data = students,
+                    Pagination = new PaginationMetadata
+                    {
+                        Page = page,
+                        PageSize = pageSize,
+                        TotalItems = total,
+                        TotalPages = (total + pageSize - 1) / pageSize
+                    }
+                };
+
+                return Ok(ApiResponse<PaginatedResponse<StudentDto>>.CreateSuccess(response, $"Students in course {courseId} retrieved successfully"));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error retrieving students for course {courseId}");
+                return StatusCode(500, ApiResponse<string>.CreateFailure("An error occurred", new List<string> { ex.Message }));
+            }
+        }
+
+        /// <summary>
         /// Create a new course
         /// </summary>
-        [HttpPost]
+        [HttpPost(Name = "CreateCourse")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> CreateCourse(
             [FromBody] CreateCourseRequest request,
@@ -119,7 +190,7 @@ namespace PRN232.LMS.API.Controllers
                     return BadRequest(ApiResponse<string>.CreateFailure("Invalid request data", new List<string>(ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)))));
 
                 var course = await _service.CreateCourseAsync(request);
-                return CreatedAtAction(nameof(GetCourseById), new { id = course.CourseId }, ApiResponse<CourseDto>.CreateSuccess(course, "Course created successfully"));
+                return CreatedAtRoute("GetCourseById", new { id = course.CourseId }, ApiResponse<CourseDto>.CreateSuccess(course, "Course created successfully"));
             }
             catch (Exception ex)
             {
@@ -131,7 +202,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Update an existing course
         /// </summary>
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}", Name = "UpdateCourse")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> UpdateCourse(
             [FromRoute] int id,
@@ -163,7 +234,7 @@ namespace PRN232.LMS.API.Controllers
         /// <summary>
         /// Delete a course
         /// </summary>
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}", Name = "DeleteCourse")]
         [Produces("application/json", "application/xml")]
         public async Task<IActionResult> DeleteCourse(
             [FromRoute] int id,
