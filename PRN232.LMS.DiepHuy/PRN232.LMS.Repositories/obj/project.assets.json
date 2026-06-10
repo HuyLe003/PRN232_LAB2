@@ -2753,11 +2753,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\PRN232\\Lab_PRN232\\PRN232_Lab\\PRN232.LMS.DiepHuy\\PRN232.LMS.Repositories\\PRN232.LMS.Repositories.csproj",
+      "projectUniqueName": "D:\\PRN232\\Lab_PRN232\\PRN232_Lab2\\PRN232_LAB2\\PRN232.LMS.DiepHuy\\PRN232.LMS.Repositories\\PRN232.LMS.Repositories.csproj",
       "projectName": "PRN232.LMS.Repositories",
-      "projectPath": "D:\\PRN232\\Lab_PRN232\\PRN232_Lab\\PRN232.LMS.DiepHuy\\PRN232.LMS.Repositories\\PRN232.LMS.Repositories.csproj",
+      "projectPath": "D:\\PRN232\\Lab_PRN232\\PRN232_Lab2\\PRN232_LAB2\\PRN232.LMS.DiepHuy\\PRN232.LMS.Repositories\\PRN232.LMS.Repositories.csproj",
       "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-      "outputPath": "D:\\PRN232\\Lab_PRN232\\PRN232_Lab\\PRN232.LMS.DiepHuy\\PRN232.LMS.Repositories\\obj\\",
+      "outputPath": "D:\\PRN232\\Lab_PRN232\\PRN232_Lab2\\PRN232_LAB2\\PRN232.LMS.DiepHuy\\PRN232.LMS.Repositories\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

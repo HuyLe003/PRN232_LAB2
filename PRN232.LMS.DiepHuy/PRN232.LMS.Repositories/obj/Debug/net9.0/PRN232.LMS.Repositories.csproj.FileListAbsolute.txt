@@ -23,3 +23,16 @@ D:\PRN232\Lab_PRN232\PRN232_Lab\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\obj\D
 D:\PRN232\Lab_PRN232\PRN232_Lab\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\obj\Debug\net9.0\refint\PRN232.LMS.Repositories.dll
 D:\PRN232\Lab_PRN232\PRN232_Lab\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\obj\Debug\net9.0\PRN232.LMS.Repositories.pdb
 D:\PRN232\Lab_PRN232\PRN232_Lab\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\obj\Debug\net9.0\ref\PRN232.LMS.Repositories.dll
+D:\PRN232\Lab_PRN232\PRN232_Lab2\PRN232_LAB2\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\bin\Debug\net9.0\PRN232.LMS.Repositories.deps.json
+D:\PRN232\Lab_PRN232\PRN232_Lab2\PRN232_LAB2\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\bin\Debug\net9.0\PRN232.LMS.Repositories.dll
+D:\PRN232\Lab_PRN232\PRN232_Lab2\PRN232_LAB2\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\bin\Debug\net9.0\PRN232.LMS.Repositories.pdb
+D:\PRN232\Lab_PRN232\PRN232_Lab2\PRN232_LAB2\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\obj\Debug\net9.0\PRN232.LMS.Repositories.csproj.AssemblyReference.cache
+D:\PRN232\Lab_PRN232\PRN232_Lab2\PRN232_LAB2\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\obj\Debug\net9.0\PRN232.LMS.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+D:\PRN232\Lab_PRN232\PRN232_Lab2\PRN232_LAB2\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\obj\Debug\net9.0\PRN232.LMS.Repositories.AssemblyInfoInputs.cache
+D:\PRN232\Lab_PRN232\PRN232_Lab2\PRN232_LAB2\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\obj\Debug\net9.0\PRN232.LMS.Repositories.AssemblyInfo.cs
+D:\PRN232\Lab_PRN232\PRN232_Lab2\PRN232_LAB2\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\obj\Debug\net9.0\PRN232.LMS.Repositories.csproj.CoreCompileInputs.cache
+D:\PRN232\Lab_PRN232\PRN232_Lab2\PRN232_LAB2\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\obj\Debug\net9.0\PRN232.LMS.Repositories.sourcelink.json
+D:\PRN232\Lab_PRN232\PRN232_Lab2\PRN232_LAB2\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\obj\Debug\net9.0\PRN232.LMS.Repositories.dll
+D:\PRN232\Lab_PRN232\PRN232_Lab2\PRN232_LAB2\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\obj\Debug\net9.0\refint\PRN232.LMS.Repositories.dll
+D:\PRN232\Lab_PRN232\PRN232_Lab2\PRN232_LAB2\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\obj\Debug\net9.0\PRN232.LMS.Repositories.pdb
+D:\PRN232\Lab_PRN232\PRN232_Lab2\PRN232_LAB2\PRN232.LMS.DiepHuy\PRN232.LMS.Repositories\obj\Debug\net9.0\ref\PRN232.LMS.Repositories.dll
