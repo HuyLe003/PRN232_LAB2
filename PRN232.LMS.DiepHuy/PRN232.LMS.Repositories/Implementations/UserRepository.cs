@@ -12,6 +12,9 @@ namespace PRN232.LMS.Repositories.Implementations
         {
         }
 
+        /// <summary>
+        /// Get user by username
+        /// </summary>
         public async Task<User?> GetByUsernameAsync(string username)
         {
             return await _dbSet.FirstOrDefaultAsync(u => u.Username == username);
